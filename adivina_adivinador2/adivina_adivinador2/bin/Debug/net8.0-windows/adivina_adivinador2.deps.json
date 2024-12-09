@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "adivina_adivinador2/1.0.0": {
+        "runtime": {
+          "adivina_adivinador2.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "adivina_adivinador2/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
