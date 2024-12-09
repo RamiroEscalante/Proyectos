@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tablero de Control de Motor a Pasos</title>
+  <style>
+    /* Estilos generales */
+    body {
+      background-color: #1b1f3a;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .dashboard {
+      text-align: center;
+      width: 400px;
+      padding: 30px;
+      background: #33384d;
+      border-radius: 15px;
+      box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #00d4ff;
+      text-shadow: 0px 0px 10px #00d4ff;
+    }
+
+    /* Velocímetro */
+    .speedometer {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 20px auto;
+      border-radius: 50%;
+      background: conic-gradient(#4caf50, #ffeb3b, #ff5722);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .speedometer::after {
+      content: '';
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: #1b1f3a;
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .needle {
+      width: 4px;
+      height: 70px;
+      background: #ff5722;
+      position: absolute;
+      bottom: 50%;
+      transform-origin: bottom;
+      transform: rotate(45deg); /* Rotación inicial */
+      z-index: 2;
+      transition: transform 0.5s ease;
+    }
+    .speed-label {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3;
+      font-size: 30px;
+      color: #ffffff;
+    }
+
+    /* Botones */
+    .button, .speed-button, .direction-button {
+      border: none;
+      padding: 15px 25px;
+      color: white;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: 80%;
+      margin: 10px auto;
+      display: inline-block;
+    }
+    .button { background-color: #ff4c4c; }
+    .speed-button { background-color: #4caf50; }
+    .direction-button { background-color: #ffc107; }
+    
+    .button:hover, .speed-button:hover, .direction-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Indicador de estado */
+    .indicator {
+      margin-top: 20px;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #00d4ff;
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <h1>Tablero de Control de Motor</h1>
+    
+    <!-- Velocímetro -->
+    <div class="speedometer">
+      <div id="needle" class="needle"></div>
+      <div id="speedLabel" class="speed-label">0</div>
+    </div>
+
+    <!-- Botones de control -->
+    <button class="button" onclick="setPower('on')">Encender Motor</button>
+    <button class="button" onclick="setPower('off')">Apagar Motor</button>
+    <button class="speed-button" onclick="setSpeed('V1')">Velocidad V1</button>
+    <button class="speed-button" onclick="setSpeed('V2')">Velocidad V2</button>
+    <button class="direction-button" onclick="setDirection('clockwise')">Horario</button>
+    <button class="direction-button" onclick="setDirection('counterclockwise')">Antihorario</button>
+    
+    <div id="status" class="indicator">Estado: Listo</div>
+  </div>
+
+  <script>
+    const ip = '192.168.2.30'; // Cambia la IP según la IP del servidor donde corre el programa Arduino
+
+    function updateStatus(message) {
+      document.getElementById('status').textContent = `Estado: ${message}`;
+    }
+
+    function setPower(state) {
+      fetch(`http://${ip}/power=${state}`)
+        .then(response => updateStatus(`Motor ${state === 'on' ? 'encendido' : 'apagado'}`))
+        .catch(error => updateStatus('Error de conexión'));
+    }
+
+    function setSpeed(speed) {
+      const needle = document.getElementById("needle");
+      const speedLabel = document.getElementById("speedLabel");
+
+      if (speed === 'V1') {
+        needle.style.transform = 'rotate(45deg)'; // Posición para velocidad V1
+        speedLabel.textContent = "V1";
+      } else if (speed === 'V2') {
+        needle.style.transform = 'rotate(90deg)'; // Posición para velocidad V2
+        speedLabel.textContent = "V2";
+      }
+
+      fetch(`http://${ip}/speed=${speed}`)
+        .then(response => updateStatus(`Velocidad establecida a ${speed}`))
+        .catch(error => updateStatus('Error de conexión'));
+    }
+
+    function setDirection(direction) {
+      fetch(`http://${ip}/direction=${direction}`)
+        .then(response => updateStatus(`Dirección ${direction === 'clockwise' ? 'horaria' : 'antihoraria'}`))
+        .catch(error => updateStatus('Error de conexión'));
+    }
+  </script>
+</body>
+</html>
