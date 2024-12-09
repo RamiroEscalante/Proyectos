@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cabina de Control de Servomotor</title>
+  <style>
+    body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #333; color: #fff; }
+    #dashboard { text-align: center; width: 300px; background: #222; border-radius: 10px; padding: 20px; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
+
+    h1 { font-size: 24px; color: #00c1c1; }
+    #angleDisplay { width: 120px; height: 120px; margin: 20px auto; border: 5px solid #555; border-radius: 50%; position: relative; }
+    #needle { position: absolute; width: 2px; height: 60px; background: #e74c3c; left: 50%; top: 10px; transform-origin: bottom; transform: rotate(90deg); }
+
+    #controls { display: flex; flex-direction: column; align-items: center; }
+    input[type=range] { width: 80%; margin: 10px 0; }
+    button { padding: 10px 20px; font-size: 16px; margin-top: 15px; background-color: #00c1c1; color: #222; border: none; border-radius: 5px; cursor: pointer; transition: background 0.3s; }
+    button:hover { background-color: #019a9a; }
+
+    #sequenceInput { margin: 15px 0; }
+    input[type="number"] { margin: 5px; width: 50px; }
+  </style>
+</head>
+<body>
+  <div id="dashboard">
+    <h1>Cabina de Control de Servomotor</h1>
+    <div id="angleDisplay">
+      <div id="needle"></div>
+    </div>
+    <div id="angleControl">
+      <label>Ángulo: <span id="angleValue">90</span>°</label>
+      <input type="range" id="angleSlider" min="0" max="180" value="90" step="1">
+    </div>
+    <button onclick="setAngle()">Establecer Ángulo</button>
+    
+    <!-- Entrada para definir secuencia de ángulos -->
+    <div id="sequenceInput">
+      <label>Secuencia de Ángulos:</label><br>
+      <input type="number" id="angle1" min="0" max="180" placeholder="0°">
+      <input type="number" id="angle2" min="0" max="180" placeholder="45°">
+      <input type="number" id="angle3" min="0" max="180" placeholder="90°">
+      <input type="number" id="angle4" min="0" max="180" placeholder="135°">
+    </div>
+    <button onclick="runCustomSequence()">Ejecutar Secuencia Personalizada</button>
+  </div>
+
+  <script>
+    const ip = "192.168.229.216"; // Cambia esta IP según la dirección de tu Arduino
+
+    // Actualizar el valor del ángulo en pantalla y rotación de la aguja
+    document.getElementById("angleSlider").oninput = function() {
+      const angle = this.value;
+      document.getElementById("angleValue").textContent = angle;
+      document.getElementById("needle").style.transform = `rotate(${angle - 90}deg)`;
+    };
+
+    // Función para enviar el ángulo al Arduino
+    function setAngle() {
+      const angle = document.getElementById("angleSlider").value;
+      fetch(`http://${ip}/angle=${angle}`)
+        .then(response => console.log(`Ángulo establecido a ${angle}°`))
+        .catch(error => console.error("Error:", error));
+    }
+
+    // Función para enviar la secuencia personalizada de ángulos al Arduino
+    function runCustomSequence() {
+      const angles = [
+        document.getElementById("angle1").value,
+        document.getElementById("angle2").value,
+        document.getElementById("angle3").value,
+        document.getElementById("angle4").value
+      ];
+
+      // Filtra los valores vacíos o incorrectos
+      const validAngles = angles.filter(angle => angle !== "" && angle >= 0 && angle <= 180);
+
+      if (validAngles.length > 0) {
+        // Crea la URL con los ángulos de la secuencia
+        fetch(`http://${ip}/sequence?angles=${validAngles.join(",")}`)
+          .then(response => console.log("Secuencia personalizada ejecutada"))
+          .catch(error => console.error("Error:", error));
+      } else {
+        console.error("Por favor, ingresa ángulos válidos.");
+      }
+    }
+  </script>
+</body>
+</html>
