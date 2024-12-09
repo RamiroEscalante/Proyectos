@@ -1,0 +1,24 @@
+﻿<Window x:Class="CRUD_Biblioteca.ActualizarVentana"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CRUD_Biblioteca"
+        mc:Ignorable="d"
+        Title="Actualiazar Cliente" Height="297" Width="360">
+    <Grid Margin="0,0,0,52">
+
+        <Label Content="Nombre:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,57,0,0"/>
+        <TextBox Name="NombreTextBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,65,0,0" Width="200"/>
+
+        <Label Content="Apellido:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,88,0,0"/>
+        <TextBox Name="ApellidoTextBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,92,0,0" Width="200"/>
+
+        <Label Content="Id:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,26,0,0" RenderTransformOrigin="2.714,3.495"/>
+        <TextBox Name="IdTextBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,30,0,0" Width="34"/>
+
+        <Button Content="Actualizar" HorizontalAlignment="Center" Margin="0,156,0,8" Width="100" Click="Actualizar_Click"/>
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,15 @@
+﻿<Window x:Class="CRUD_Biblioteca.EliminarLibroWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CRUD_Biblioteca"
+        mc:Ignorable="d"
+            Title="ID_Libro" Height="200" Width="300">
+    <Grid>
+        <Label Content="Dame el ID del cliente: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="66,28,0,0" RenderTransformOrigin="1.039,2.586"/>
+        <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="66,70,0,0" RenderTransformOrigin="1.039,2.586"/>
+        <TextBox Name="IdLibroTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="112,74,0,0" Width="50"/>
+        <Button Content="Eliminar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="87,130,0,0" Width="100" Click="EliminarLibroButton_Click"/>
+    </Grid>
+</Window>

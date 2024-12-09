@@ -1,0 +1,19 @@
+﻿<Window x:Class="CRUD_Biblioteca.GeneroWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CRUD_Biblioteca"
+        mc:Ignorable="d"
+            Title="Genero" Height="300" Width="400">
+    <Grid>
+        <!-- Etiquetas y TextBoxes -->
+        <Label Content="Nombre:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0"/>
+        <TextBox Name="NombreGeneroTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,20,0,0" Width="200"/>
+
+        <!-- Botones -->
+        <Button Content="Agregar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,130,0,0" Width="100" Click="AgregarButton_Click"/>
+        <Button Content="Eliminar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="140,130,0,0" Width="100" Click="EliminarButton_Click"/>
+        <Button Content="Actualizar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="260,130,0,0" Width="100" Click="ActualizarButton_Click"/>
+    </Grid>
+</Window>
