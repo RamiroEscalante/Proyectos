@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <!-- imagen cancion-->
+    
+    <ImageView
+        android:id="@+id/songIamges"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@drawable/piel"
+        />
+
+    <SeekBar
+        android:id="@+id/songSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:progress="0" />
+
+    <!-- titulo-->
+    <TextView
+        android:id="@+id/songTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Titulo de cancion"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:padding="16dp"
+        />
+
+    <!-- Botones de control -->
+    <ImageButton
+        android:id="@+id/btnPrev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_media_previous"
+        android:contentDescription="Anterior"
+        android:layout_gravity="center" />
+
+    <ImageButton
+        android:id="@+id/btnPlayPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_media_play"
+        android:contentDescription="Reproducir/Pausar"
+        android:layout_gravity="center" />
+
+    <ImageButton
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_media_next"
+        android:contentDescription="Siguiente"
+        android:layout_gravity="center" />
+
+    <!-- Botones de bucle -->
+    <Button
+        android:id="@+id/btnLoop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bucle Continuo"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnShuffle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bucle Aleatorio"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>
